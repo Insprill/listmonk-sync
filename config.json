@@ -1,0 +1,7 @@
+{
+    "run_every": 3600,
+    "listmonk_domain": "example.com",
+    "listmonk_list_ids": [1,2,3],
+    "listmonk_confirmation": true,
+    "listmonk_overwrite": false
+}

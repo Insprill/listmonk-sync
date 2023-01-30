@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  listmonk-sync:
+    build: .
+    container_name: listmonk-sync
+    restart: always
+    environment:
+      SQUARE_API_TOKEN: "token"
+      LISTMONK_USER: "username"
+      LISTMONK_PASSWORD: "password"
+    volumes:
+      - ./config.json:/config.json
