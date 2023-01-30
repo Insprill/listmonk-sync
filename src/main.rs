@@ -142,8 +142,9 @@ async fn run(config: &Config) -> Result<(), Box<dyn Error>> {
             .iter()
             .filter(|c| c.subscribed == mode.1)
             .collect();
-        let csv = generate_import_csv(subs)?;
+        let csv = generate_import_csv(&subs)?;
 
+        info!("Uploading {} listmonk subscribers ({})", subs.len(), mode.0);
         upload_subscribers(import, csv, &config.listmonk_domain).await?;
     }
 
@@ -181,7 +182,7 @@ async fn get_square_customers() -> Result<Vec<SquareCustomer>, Box<dyn Error>> {
     Ok(customers)
 }
 
-fn generate_import_csv(subscribers: Vec<&ListmonkSubscriber>) -> Result<String, Box<dyn Error>> {
+fn generate_import_csv(subscribers: &Vec<&ListmonkSubscriber>) -> Result<String, Box<dyn Error>> {
     let buf = BufWriter::new(Vec::new());
     let mut writer = csv::Writer::from_writer(buf);
     for customer in subscribers {
@@ -197,7 +198,6 @@ async fn upload_subscribers(
     csv: String,
     domain: &str,
 ) -> Result<Response, Box<dyn Error>> {
-    info!("Uploading listmonk subscribers");
     let form = Form::new()
         .text("params", serde_json::to_string(&import)?)
         .part(
