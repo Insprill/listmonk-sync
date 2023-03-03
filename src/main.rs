@@ -107,7 +107,12 @@ async fn run(config: &Config) -> Result<(), Box<dyn Error>> {
         .await?
         .into_iter()
         .filter(|c| c.email_address.is_some())
-        .sorted_by_key(|c| !c.preferences.email_unsubscribed)
+        .sorted_by_key(|c| {
+            (
+                c.given_name.is_some() || c.family_name.is_some(),
+                !c.preferences.email_unsubscribed,
+            )
+        })
         .unique_by(|c| c.email_address.as_ref().unwrap().to_string()) // Unwrap validated in filter
         .map(|customer| ListmonkSubscriber {
             email: customer.email_address.unwrap(),
