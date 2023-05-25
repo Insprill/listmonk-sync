@@ -6,6 +6,7 @@ license = "Apache-2.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.71"
 csv = "1.2.1"
 itertools = "0.10.5"
 log = "0.4.17"
