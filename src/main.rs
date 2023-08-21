@@ -14,7 +14,7 @@ const SQUARE_VERSION: &str = "2023-01-19";
 
 #[derive(Deserialize, Debug)]
 struct Config {
-    /// How often the program should run as a CRON schedule.
+    /// How often the program should run, in seconds.
     run_every: u64,
 
     /// The domain of your listmonk instance. This should not include 'https://' or a path.
