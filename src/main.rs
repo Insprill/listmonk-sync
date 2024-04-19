@@ -133,7 +133,7 @@ async fn run(config: &Config, creds: &Credentials) -> Result<(), Box<dyn Error>>
                 !c.preferences.email_unsubscribed,
             )
         })
-        .unique_by(|c| c.email_address.as_ref().unwrap().to_string()) // Unwrap validated in filter
+        .unique_by(|c| c.email_address.as_ref().unwrap().to_lowercase()) // Unwrap validated in filter
         .map(|customer| ListmonkSubscriber {
             email: customer.email_address.unwrap(),
             name: format!(
