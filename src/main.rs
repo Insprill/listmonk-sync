@@ -139,7 +139,7 @@ async fn run(config: &Config, creds: &Credentials) -> Result<(), Box<dyn Error>>
             name: format!(
                 "{} {}",
                 customer.given_name.unwrap_or("Customer".to_string()),
-                customer.family_name.unwrap_or(String::new())
+                customer.family_name.unwrap_or_default()
             )
             .trim()
             .to_string(),
